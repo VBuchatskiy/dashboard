@@ -23,15 +23,6 @@ const onSubmit = handleSubmit(async (values) => {
 })
 
 const formClass = cn('w-full space-y-4')
-
-const inputClass = cn(
-  'w-full rounded-lg border border-gray-700 bg-gray-800',
-  'px-3 py-2 text-sm text-white placeholder-gray-500',
-  'outline-none transition',
-  'focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
-)
-
-const inputErrorClass = 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
 </script>
 
 <template>
@@ -42,33 +33,27 @@ const inputErrorClass = 'border-red-500 focus:border-red-500 focus:ring-red-500/
     </div>
 
     <form :class="formClass" @submit.prevent="onSubmit">
-      <div class="space-y-1.5">
-        <label class="text-sm font-medium text-gray-300" for="email">Email</label>
-        <input
-          id="email"
-          v-bind="emailAttrs"
-          v-model="email"
-          type="email"
-          placeholder="admin@example.com"
-          autocomplete="email"
-          :class="cn(inputClass, errors.email && inputErrorClass)"
-        >
-        <p v-if="errors.email" class="text-sm text-red-400">{{ errors.email }}</p>
-      </div>
+      <BaseFormField
+        v-model="email"
+        label="Email"
+        for-id="email"
+        :error="errors.email"
+        :input-attrs="emailAttrs"
+        type="email"
+        placeholder="admin@example.com"
+        autocomplete="email"
+      />
 
-      <div class="space-y-1.5">
-        <label class="text-sm font-medium text-gray-300" for="password">Пароль</label>
-        <input
-          id="password"
-          v-bind="passwordAttrs"
-          v-model="password"
-          type="password"
-          placeholder="••••••••"
-          autocomplete="current-password"
-          :class="cn(inputClass, errors.password && inputErrorClass)"
-        >
-        <p v-if="errors.password" class="text-sm text-red-400">{{ errors.password }}</p>
-      </div>
+      <BaseFormField
+        v-model="password"
+        label="Пароль"
+        for-id="password"
+        :error="errors.password"
+        :input-attrs="passwordAttrs"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="current-password"
+      />
 
       <p v-if="error" class="text-sm text-red-400">{{ error }}</p>
 
