@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '~/shared/lib/cn'
+import { cn } from '@/shared/lib/cn'
 
 const props = withDefaults(defineProps<{
   type?: 'button' | 'submit' | 'reset'

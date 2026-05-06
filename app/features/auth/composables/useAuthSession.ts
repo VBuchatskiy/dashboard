@@ -1,4 +1,4 @@
-import type { User } from "~/features/auth/types";
+import type { User } from '@/features/auth/types'
 
 export async function fetchSessionUser(): Promise<User | null> {
   try {

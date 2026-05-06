@@ -3,8 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
-      "@/*": ["./app/*"]
+      "@/*": ["./app/*"],
+      "~/*": ["./server/*"],
+      "#app": ["./app"],
+      "#app/*": ["./app/*"],
+      "#server": ["./server"],
+      "#server/*": ["./server/*"]
     }
   },
   "files": [],

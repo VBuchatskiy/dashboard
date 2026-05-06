@@ -1,21 +1,7 @@
-import { defineVitestConfig } from '@nuxt/test-utils/config'
-import { resolve } from 'node:path'
+import { defineConfig } from 'vitest/config'
 
-export default defineVitestConfig({
-  resolve: {
-    alias: {
-      '~': resolve(__dirname, './app'),
-      '@': resolve(__dirname, './app')
-    }
-  },
+export default defineConfig({
   test: {
-    environment: 'nuxt',
-    environmentOptions: {
-      nuxt: {
-        rootDir: '.'
-      }
-    },
-    globals: true,
-    include: ['app/**/*.spec.ts', 'server/**/*.spec.ts'],
+    projects: ['./vitest.app.config.ts', './vitest.server.config.ts']
   }
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '~/shared/lib/cn'
+import { cn } from '@/shared/lib/cn'
 
 const layoutClass = cn(
   'min-h-screen flex items-center justify-center bg-gray-950',

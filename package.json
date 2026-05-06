@@ -2,16 +2,21 @@
   "name": "dashboard",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest run app",
+    "prepare": "husky",
+    "test": "vitest run",
+    "test:all": "vitest run",
     "test:watch": "vitest",
-    "test:unit": "vitest run app/features",
-    "test:e2e": "vitest run server"
+    "test:unit": "vitest run --project app app/features",
+    "test:e2e": "vitest run --project server"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.3",
@@ -28,6 +33,7 @@
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@vue/test-utils": "^2.4.10",
     "happy-dom": "^20.9.0",
+    "husky": "^9.1.7",
     "vitest": "^4.1.5"
   }
 }

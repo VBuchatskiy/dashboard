@@ -1,8 +1,8 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { useAuthStore } from '~/features/auth/stores/authStore'
-import { useAuth } from '~/features/auth/composables/useAuth'
+import { useAuthStore } from '@/features/auth/stores/authStore'
+import { useAuth } from '@/features/auth/composables/useAuth'
 
-vi.mock('~/features/auth/api/authApi', () => ({
+vi.mock('@/features/auth/api/authApi', () => ({
   loginRequest: vi.fn().mockResolvedValue({
     user: { id: 1, email: 'admin@example.com' }
   }),

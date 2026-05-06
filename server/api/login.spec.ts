@@ -1,21 +1,22 @@
 // @vitest-environment node
 import { describe, it, expect } from 'vitest'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { setup, $fetch, url } from '@nuxt/test-utils/e2e'
 import { fileURLToPath } from 'node:url'
-import type { LoginResponse } from '../../app/features/auth/types'
+import type { LoginResponse } from '@/features/auth/types'
 
-describe('POST /api/login', async () => {
-  await setup({
-    rootDir: fileURLToPath(new URL('../..', import.meta.url))
-  })
+await setup({
+  rootDir: fileURLToPath(new URL('../..', import.meta.url))
+})
 
+describe('POST /api/login', () => {
   it('sets httpOnly cookie and returns user', async () => {
-    const res = await $fetch.raw('/api/login', {
+    const res = await fetch(url('/api/login'), {
       method: 'POST',
-      body: { email: 'admin@example.com', password: 'secret' }
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: 'admin@example.com', password: 'secret' })
     })
 
-    const body = res._data as LoginResponse
+    const body = (await res.json()) as LoginResponse
     expect(body.user.email).toBe('admin@example.com')
     const cookie = res.headers.get('set-cookie') ?? ''
     expect(cookie).toContain('auth_token=')

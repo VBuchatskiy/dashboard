@@ -1,4 +1,4 @@
-import type { LoginResponse, RegisterResponse } from '~/features/auth/types'
+import type { LoginResponse, RegisterResponse } from '@/features/auth/types'
 
 export const loginRequest = (email: string, password: string) => {
   const { $api } = useNuxtApp()

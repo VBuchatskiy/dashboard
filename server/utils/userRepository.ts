@@ -4,7 +4,7 @@ import {
   scryptSync,
   timingSafeEqual,
 } from "node:crypto";
-import type { User } from "~/features/auth/types";
+import type { User } from '@/features/auth/types'
 
 type UserRow = { id: number; email: string; passwordHash: string };
 

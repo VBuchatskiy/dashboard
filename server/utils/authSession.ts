@@ -1,5 +1,5 @@
-import type { User } from '~/features/auth/types'
-import { getUserForSessionToken } from './userRepository'
+import type { User } from '@/features/auth/types'
+import { getUserForSessionToken } from '~/utils/userRepository'
 
 /** Cookie name for session token (httpOnly). */
 export const AUTH_COOKIE_NAME = 'auth_token'
