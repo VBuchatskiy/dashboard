@@ -20,7 +20,12 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@vee-validate/nuxt'],
+
+  'vee-validate': {
+    typedSchemaPackage: 'valibot',
+    autoImports: true
+  },
 
   components: [
     { path: '@/features/auth/ui', prefix: 'Auth' },

@@ -1,8 +1,8 @@
-export function useFormSubmit(fn: () => Promise<void>) {
+export function useFormSubmit() {
   const loading = ref(false)
   const error = ref('')
 
-  async function submit() {
+  async function submit(fn: () => Promise<void>) {
     error.value = ''
     loading.value = true
     try {

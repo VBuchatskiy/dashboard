@@ -12,10 +12,6 @@ export default defineProject({
     alias: {
       '~': serverDir,
       '@': appDir,
-      '~~': root,
-      '@@': root,
-      '#app': appDir,
-      '#server': serverDir
     }
   },
   test: {

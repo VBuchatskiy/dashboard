@@ -1,23 +1,26 @@
 <script setup lang="ts">
+import { registerSchema } from '@/features/auth/validation/authForms'
 import { cn } from '@/shared/lib/cn'
 
 const { register } = useAuth()
 
-const email = ref('')
-const password = ref('')
-const passwordConfirm = ref('')
-
 const emit = defineEmits<{ success: [] }>()
 
-const { loading, error, submit } = useFormSubmit(async () => {
-  if (password.value !== passwordConfirm.value) {
-    throw new Error('Passwords do not match')
-  }
-  if (password.value.length < 8) {
-    throw new Error('Password must be at least 8 characters')
-  }
-  await register(email.value, password.value)
-  emit('success')
+const { errors, handleSubmit, defineField } = useForm({
+  validationSchema: registerSchema
+})
+
+const [email, emailAttrs] = defineField('email')
+const [password, passwordAttrs] = defineField('password')
+const [passwordConfirm, passwordConfirmAttrs] = defineField('passwordConfirm')
+
+const { loading, error, submit } = useFormSubmit()
+
+const onSubmit = handleSubmit(async (values) => {
+  await submit(async () => {
+    await register(values.email, values.password)
+    emit('success')
+  })
 })
 
 const formClass = cn('w-full space-y-4')
@@ -28,6 +31,8 @@ const inputClass = cn(
   'outline-none transition',
   'focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
 )
+
+const inputErrorClass = 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
 </script>
 
 <template>
@@ -37,45 +42,47 @@ const inputClass = cn(
       <p class="mt-1 text-sm text-gray-400">Создайте аккаунт</p>
     </div>
 
-    <form :class="formClass" @submit.prevent="submit">
+    <form :class="formClass" @submit.prevent="onSubmit">
       <div class="space-y-1.5">
         <label class="text-sm font-medium text-gray-300" for="reg-email">Email</label>
         <input
           id="reg-email"
+          v-bind="emailAttrs"
           v-model="email"
           type="email"
           placeholder="you@example.com"
           autocomplete="email"
-          required
-          :class="inputClass"
+          :class="cn(inputClass, errors.email && inputErrorClass)"
         >
+        <p v-if="errors.email" class="text-sm text-red-400">{{ errors.email }}</p>
       </div>
 
       <div class="space-y-1.5">
         <label class="text-sm font-medium text-gray-300" for="reg-password">Пароль</label>
         <input
           id="reg-password"
+          v-bind="passwordAttrs"
           v-model="password"
           type="password"
           placeholder="Не менее 8 символов"
           autocomplete="new-password"
-          required
-          minlength="8"
-          :class="inputClass"
+          :class="cn(inputClass, errors.password && inputErrorClass)"
         >
+        <p v-if="errors.password" class="text-sm text-red-400">{{ errors.password }}</p>
       </div>
 
       <div class="space-y-1.5">
         <label class="text-sm font-medium text-gray-300" for="reg-password2">Пароль ещё раз</label>
         <input
           id="reg-password2"
+          v-bind="passwordConfirmAttrs"
           v-model="passwordConfirm"
           type="password"
           placeholder="Повторите пароль"
           autocomplete="new-password"
-          required
-          :class="inputClass"
+          :class="cn(inputClass, errors.passwordConfirm && inputErrorClass)"
         >
+        <p v-if="errors.passwordConfirm" class="text-sm text-red-400">{{ errors.passwordConfirm }}</p>
       </div>
 
       <p v-if="error" class="text-sm text-red-400">{{ error }}</p>
