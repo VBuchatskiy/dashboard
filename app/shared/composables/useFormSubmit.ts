@@ -11,7 +11,7 @@ export function useFormSubmit(fn: () => Promise<void>) {
       if (e instanceof Error) {
         error.value = e.message
       } else {
-        error.value = 'Неизвестная ошибка'
+        error.value = 'unknown error'
       }
     } finally {
       loading.value = false

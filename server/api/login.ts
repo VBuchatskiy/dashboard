@@ -1,9 +1,6 @@
 import { setCookie } from 'h3'
-import {
-  AUTH_COOKIE_NAME,
-  DEMO_SESSION_TOKEN,
-  userFromSessionToken
-} from '../utils/authSession'
+import { AUTH_COOKIE_NAME, cookieAuthOptions } from '../utils/authSession'
+import { createSessionToken, verifyCredentials } from '../utils/userRepository'
 
 export default defineEventHandler(async (event) => {
   assertMethod(event, 'POST')
@@ -13,19 +10,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Email and password required' })
   }
 
-  if (email !== 'admin@example.com' || password !== 'secret') {
-    throw createError({ statusCode: 401, statusMessage: 'Invalid credentials' })
-  }
+  const user = verifyCredentials(email, password)
+  const token = createSessionToken(user.id)
 
-  const user = userFromSessionToken(DEMO_SESSION_TOKEN)!
-  const secure = process.env.NODE_ENV === 'production'
-
-  setCookie(event, AUTH_COOKIE_NAME, DEMO_SESSION_TOKEN, {
-    httpOnly: true,
-    secure,
-    sameSite: 'lax',
-    path: '/'
-  })
+  setCookie(event, AUTH_COOKIE_NAME, token, cookieAuthOptions())
 
   return { user }
 })

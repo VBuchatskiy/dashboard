@@ -1,10 +1,11 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'login' })
 
+function onSuccess() {
+  navigateTo('/dashboard')
+}
 </script>
 
 <template>
-  <div>
-    <h1>Register</h1>
-  </div>
+  <AuthRegisterForm @success="onSuccess" />
 </template>

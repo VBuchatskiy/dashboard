@@ -6,16 +6,21 @@ export const useAuth = () => {
     store.setUser(data.user)
   }
 
+  const register = async (email: string, password: string) => {
+    const data = await registerRequest(email, password)
+    store.setUser(data.user)
+  }
+
   const logout = async () => {
     try {
       await logoutRequest()
     } catch {
-      // сеть / сервер — всё равно чистим локальное состояние
+      console.error('Failed to logout')
     } finally {
       store.logout()
       await navigateTo('/login')
     }
   }
 
-  return { login, logout }
+  return { login, register, logout }
 }

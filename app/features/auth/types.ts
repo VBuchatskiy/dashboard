@@ -7,3 +7,5 @@ export type User = {
 export type LoginResponse = {
   user: User
 }
+
+export type RegisterResponse = LoginResponse

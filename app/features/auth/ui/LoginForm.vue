@@ -13,10 +13,7 @@ const { loading, error, submit } = useFormSubmit(async () => {
   emit('success')
 })
 
-const cardClass = cn(
-  'w-full rounded-2xl border border-gray-800 bg-gray-900 p-6 space-y-4',
-  'sm:p-8'
-)
+const formClass = cn('w-full space-y-4')
 
 const inputClass = cn(
   'w-full rounded-lg border border-gray-700 bg-gray-800',
@@ -24,12 +21,6 @@ const inputClass = cn(
   'outline-none transition',
   'focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
 )
-
-const buttonClass = computed(() => cn(
-  'w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition',
-  'bg-blue-600 hover:bg-blue-500',
-  loading.value && 'opacity-50 cursor-not-allowed'
-))
 </script>
 
 <template>
@@ -39,7 +30,7 @@ const buttonClass = computed(() => cn(
       <p class="mt-1 text-sm text-gray-400">Введите данные для входа</p>
     </div>
 
-    <form :class="cardClass" @submit.prevent="submit">
+    <form :class="formClass" @submit.prevent="submit">
       <div class="space-y-1.5">
         <label class="text-sm font-medium text-gray-300" for="email">Email</label>
         <input
@@ -68,9 +59,14 @@ const buttonClass = computed(() => cn(
 
       <p v-if="error" class="text-sm text-red-400">{{ error }}</p>
 
-      <button type="submit" :disabled="loading" :class="buttonClass">
+      <BaseButton type="submit" block :loading="loading" :disabled="loading">
         {{ loading ? 'Вход...' : 'Войти' }}
-      </button>
+      </BaseButton>
     </form>
+
+    <p class="mt-6 text-center text-sm text-gray-400">
+      Нет аккаунта?
+      <NuxtLink to="/register" class="text-blue-400 hover:text-blue-300">Зарегистрироваться</NuxtLink>
+    </p>
   </div>
 </template>

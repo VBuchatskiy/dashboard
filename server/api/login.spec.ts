@@ -9,7 +9,7 @@ describe('POST /api/login', async () => {
     rootDir: fileURLToPath(new URL('../..', import.meta.url))
   })
 
-  it('ставит httpOnly cookie и возвращает user', async () => {
+  it('sets httpOnly cookie and returns user', async () => {
     const res = await $fetch.raw('/api/login', {
       method: 'POST',
       body: { email: 'admin@example.com', password: 'secret' }
@@ -22,7 +22,7 @@ describe('POST /api/login', async () => {
     expect(cookie.toLowerCase()).toContain('httponly')
   })
 
-  it('401 при неверном пароле', async () => {
+  it('401 on invalid password', async () => {
     await expect(
       $fetch('/api/login', {
         method: 'POST',
@@ -31,7 +31,7 @@ describe('POST /api/login', async () => {
     ).rejects.toMatchObject({ statusCode: 401 })
   })
 
-  it('401 при неверном email', async () => {
+  it('401 on invalid email', async () => {
     await expect(
       $fetch('/api/login', {
         method: 'POST',

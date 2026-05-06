@@ -6,20 +6,20 @@ describe('authStore', () => {
     setActivePinia(createPinia())
   })
 
-  it('начальное состояние пустое', () => {
+  it('initial state is empty', () => {
     const store = useAuthStore()
     expect(store.user).toBeNull()
     expect(store.isAuthenticated).toBe(false)
   })
 
-  it('setUser сохраняет пользователя', () => {
+  it('setUser saves user', () => {
     const store = useAuthStore()
     store.setUser({ id: 1, email: 'admin@example.com' })
     expect(store.user).toEqual({ id: 1, email: 'admin@example.com' })
     expect(store.isAuthenticated).toBe(true)
   })
 
-  it('logout сбрасывает состояние', () => {
+  it('logout resets state', () => {
     const store = useAuthStore()
     store.setUser({ id: 1, email: 'admin@example.com' })
     store.logout()

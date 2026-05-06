@@ -6,7 +6,8 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
 
   components: [
-    { path: '~/features/auth/ui', prefix: 'Auth' }
+    { path: '~/features/auth/ui', prefix: 'Auth' },
+    { path: '~/shared/ui', prefix: 'Base' }
   ],
 
   imports: {
