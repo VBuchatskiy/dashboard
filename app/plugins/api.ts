@@ -6,7 +6,7 @@ export default defineNuxtPlugin(() => {
     async onResponseError({ response }) {
       if (response.status === 401) {
         try {
-          await $fetch('/api/logout', { method: 'POST', credentials: 'include' })
+          await $fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
         } catch {
           console.error('Failed to logout')
         }

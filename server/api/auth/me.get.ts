@@ -1,5 +1,5 @@
 import { getCookie } from 'h3'
-import { AUTH_COOKIE_NAME, userFromSessionToken } from '../utils/authSession'
+import { AUTH_COOKIE_NAME, userFromSessionToken } from '~/utils/auth/authSession'
 
 export default defineEventHandler((event) => {
   const token = getCookie(event, AUTH_COOKIE_NAME)

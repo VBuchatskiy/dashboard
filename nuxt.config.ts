@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    binanceRestUrl:
+      process.env.BINANCE_REST_URL?.trim() || 'https://api.binance.com'
+  },
+
   alias: {
     '#app': appDir,
     '#server': serverDir
@@ -37,6 +42,8 @@ export default defineNuxtConfig({
       'features/auth/api',
       'features/auth/stores',
       'features/auth/composables',
+      'features/market/api',
+      'features/market/composables',
       'shared/lib',
       'shared/composables'
     ]

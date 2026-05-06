@@ -5,12 +5,12 @@ import { fileURLToPath } from 'node:url'
 import type { LoginResponse } from '@/features/auth/types'
 
 await setup({
-  rootDir: fileURLToPath(new URL('../..', import.meta.url))
+  rootDir: fileURLToPath(new URL('../../..', import.meta.url))
 })
 
-describe('POST /api/login', () => {
+describe('POST /api/auth/login', () => {
   it('sets httpOnly cookie and returns user', async () => {
-    const res = await fetch(url('/api/login'), {
+    const res = await fetch(url('/api/auth/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: 'admin@example.com', password: 'secret' })
@@ -25,7 +25,7 @@ describe('POST /api/login', () => {
 
   it('401 on invalid password', async () => {
     await expect(
-      $fetch('/api/login', {
+      $fetch('/api/auth/login', {
         method: 'POST',
         body: { email: 'admin@example.com', password: 'wrong' }
       })
@@ -34,7 +34,7 @@ describe('POST /api/login', () => {
 
   it('401 on invalid email', async () => {
     await expect(
-      $fetch('/api/login', {
+      $fetch('/api/auth/login', {
         method: 'POST',
         body: { email: 'other@example.com', password: 'secret' }
       })

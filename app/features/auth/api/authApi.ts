@@ -2,7 +2,7 @@ import type { LoginResponse, RegisterResponse } from '@/features/auth/types'
 
 export const loginRequest = (email: string, password: string) => {
   const { $api } = useNuxtApp()
-  return $api<LoginResponse>('/api/login', {
+  return $api<LoginResponse>('/api/auth/login', {
     method: 'POST',
     body: { email, password }
   })
@@ -10,7 +10,7 @@ export const loginRequest = (email: string, password: string) => {
 
 export const registerRequest = (email: string, password: string) => {
   const { $api } = useNuxtApp()
-  return $api<RegisterResponse>('/api/register', {
+  return $api<RegisterResponse>('/api/auth/register', {
     method: 'POST',
     body: { email, password }
   })
@@ -18,7 +18,7 @@ export const registerRequest = (email: string, password: string) => {
 
 export const logoutRequest = () => {
   const { $api } = useNuxtApp()
-  return $api('/api/logout', {
+  return $api('/api/auth/logout', {
     method: 'POST'
   })
 }

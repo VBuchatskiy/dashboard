@@ -5,13 +5,13 @@ import { fileURLToPath } from 'node:url'
 import type { LoginResponse } from '@/features/auth/types'
 
 await setup({
-  rootDir: fileURLToPath(new URL('../..', import.meta.url))
+  rootDir: fileURLToPath(new URL('../../..', import.meta.url))
 })
 
-describe('POST /api/register', () => {
+describe('POST /api/auth/register', () => {
   it('sets httpOnly cookie and returns user', async () => {
     const email = `new-${Date.now()}@example.com`
-    const res = await fetch(url('/api/register'), {
+    const res = await fetch(url('/api/auth/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: 'password12' })
@@ -26,12 +26,12 @@ describe('POST /api/register', () => {
 
   it('409 if email is already taken', async () => {
     const email = `dup-${Date.now()}@example.com`
-    await $fetch('/api/register', {
+    await $fetch('/api/auth/register', {
       method: 'POST',
       body: { email, password: 'password12' }
     })
     await expect(
-      $fetch('/api/register', {
+      $fetch('/api/auth/register', {
         method: 'POST',
         body: { email, password: 'password12' }
       })
@@ -40,7 +40,7 @@ describe('POST /api/register', () => {
 
   it('400 if password is less than 8 characters', async () => {
     await expect(
-      $fetch('/api/register', {
+      $fetch('/api/auth/register', {
         method: 'POST',
         body: { email: `short-${Date.now()}@example.com`, password: 'short' }
       })
