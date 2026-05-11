@@ -1,6 +1,8 @@
+import type { RouteLocationNormalized } from 'vue-router'
+
 const PUBLIC_PATHS = ['/login', '/register']
 
-export default defineNuxtRouteMiddleware(async (to) => {
+export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => {
   const authStore = useAuthStore()
 
   if (!authStore.user) {

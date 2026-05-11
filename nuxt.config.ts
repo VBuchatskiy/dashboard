@@ -10,7 +10,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     binanceRestUrl:
-      process.env.BINANCE_REST_URL?.trim() || 'https://api.binance.com'
+      process.env.BINANCE_REST_URL?.trim() || 'https://api.binance.com',
+    binanceWsUrl:
+      process.env.BINANCE_WS_URL?.trim() || 'wss://stream.binance.com:9443'
   },
 
   alias: {
@@ -22,6 +24,9 @@ export default defineNuxtConfig({
     alias: {
       '~': serverDir,
       '@': appDir
+    },
+    experimental: {
+      websocket: true
     }
   },
 
